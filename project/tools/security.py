@@ -56,7 +56,7 @@ def generate_tokens(email, password, password_hash=None, is_refresh=False):
 def approve_refresh_token(refresh_token):
     data = jwt.decode(jwt=refresh_token,
                       key=current_app.config['SECRET_KEY'],
-                      algorithm=current_app.config['ALGORITHM'])
+                      algorithms=current_app.config['ALGORITHM'])
 
     email = data.get("email")
     password = data.get("password")
@@ -68,7 +68,7 @@ def get_data_from_token(refresh_token):
     try:
         data = jwt.decode(jwt=refresh_token,
                           key=current_app.config['SECRET_KEY'],
-                          algorithm=current_app.config['ALGORITHM'])
+                          algorithms=current_app.config['ALGORITHM'])
         return data
     except Exception:
-        return None
+        raise
